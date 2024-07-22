@@ -2,25 +2,20 @@
 using Microsoft.AspNetCore.Mvc;
 using HotelManagementSystem.Data;
 using HotelManagementSystem.Models;
-using System.Collections.Generic;
-using System.Linq;
 
-[Route("api/[controller]")]
-[ApiController]
-public class CustomersController : ControllerBase
+namespace HotelManagementSystem.Controllers
 {
-    private readonly HotelContext _context;
-
-    public CustomersController(HotelContext context)
+    [ApiController]
+    [Route("[controller]")]
+    public class CustomersController : ControllerBase
     {
-        _context = context;
-    }
+        private readonly HotelContext _context;
 
-    [HttpGet]
-    public ActionResult<IEnumerable<Customer>> GetCustomers()
-    {
-        return _context.Customers.ToList();
-    }
+        public CustomersController(HotelContext context)
+        {
+            _context = context;
+        }
 
-    // Other CRUD actions
+        // Define your actions here
+    }
 }

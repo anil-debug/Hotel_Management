@@ -1,19 +1,30 @@
-FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
-WORKDIR /app
-EXPOSE 80
+# Use the official .NET SDK image to build the application
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+# Set the working directory to /src
 WORKDIR /src
-COPY ["HotelManagementSystem.csproj", "./"]
-RUN dotnet restore "./HotelManagementSystem.csproj"
-COPY . .
-WORKDIR "/src/."
-RUN dotnet build "HotelManagementSystem.csproj" -c Release -o /app/build
 
-FROM build AS publish
-RUN dotnet publish "HotelManagementSystem.csproj" -c Release -o /app/publish
+# Copy the project file and restore any dependencies
+COPY HotelManagementSystem.csproj ./
+RUN dotnet restore
 
-FROM base AS final
+# Copy the rest of the application code
+COPY . ./
+
+# Build the application
+RUN dotnet build -c Release -o /app/build
+
+# Publish the application
+RUN dotnet publish -c Release -o /app/publish
+
+# Use the official ASP.NET Core runtime image for the final stage
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
+
+# Set the working directory to /app
 WORKDIR /app
-COPY --from=publish /app/publish .
+
+# Copy the published files from the build stage
+COPY --from=build /app/publish .
+
+# Set the entry point for the container
 ENTRYPOINT ["dotnet", "HotelManagementSystem.dll"]
