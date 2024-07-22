@@ -1,0 +1,14 @@
+/home/solomon/Desktop/personal/Hotel_Management/Database/HotelManagementDatabase/bin/Debug/net6.0/HotelManagementDatabase.deps.json
+/home/solomon/Desktop/personal/Hotel_Management/Database/HotelManagementDatabase/bin/Debug/net6.0/HotelManagementDatabase.runtimeconfig.json
+/home/solomon/Desktop/personal/Hotel_Management/Database/HotelManagementDatabase/bin/Debug/net6.0/HotelManagementDatabase.dll
+/home/solomon/Desktop/personal/Hotel_Management/Database/HotelManagementDatabase/bin/Debug/net6.0/HotelManagementDatabase.pdb
+/home/solomon/Desktop/personal/Hotel_Management/Database/HotelManagementDatabase/obj/Debug/net6.0/HotelManagementDatabase.csproj.AssemblyReference.cache
+/home/solomon/Desktop/personal/Hotel_Management/Database/HotelManagementDatabase/obj/Debug/net6.0/HotelManagementDatabase.GeneratedMSBuildEditorConfig.editorconfig
+/home/solomon/Desktop/personal/Hotel_Management/Database/HotelManagementDatabase/obj/Debug/net6.0/HotelManagementDatabase.AssemblyInfoInputs.cache
+/home/solomon/Desktop/personal/Hotel_Management/Database/HotelManagementDatabase/obj/Debug/net6.0/HotelManagementDatabase.AssemblyInfo.cs
+/home/solomon/Desktop/personal/Hotel_Management/Database/HotelManagementDatabase/obj/Debug/net6.0/HotelManagementDatabase.csproj.CoreCompileInputs.cache
+/home/solomon/Desktop/personal/Hotel_Management/Database/HotelManagementDatabase/obj/Debug/net6.0/HotelManagementDatabase.dll
+/home/solomon/Desktop/personal/Hotel_Management/Database/HotelManagementDatabase/obj/Debug/net6.0/refint/HotelManagementDatabase.dll
+/home/solomon/Desktop/personal/Hotel_Management/Database/HotelManagementDatabase/obj/Debug/net6.0/HotelManagementDatabase.pdb
+/home/solomon/Desktop/personal/Hotel_Management/Database/HotelManagementDatabase/obj/Debug/net6.0/HotelManagementDatabase.genruntimeconfig.cache
+/home/solomon/Desktop/personal/Hotel_Management/Database/HotelManagementDatabase/obj/Debug/net6.0/ref/HotelManagementDatabase.dll

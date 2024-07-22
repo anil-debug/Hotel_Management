@@ -1,19 +1,20 @@
-FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
-WORKDIR /app
-EXPOSE 80
+# Use .NET 6.0 SDK base image
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
-WORKDIR /src
-COPY ["HotelManagementFrontend.csproj", "./"]
+WORKDIR /app
+
+# Copy project file and restore dependencies
+COPY HotelManagementFrontend.csproj ./
 RUN dotnet restore "./HotelManagementFrontend.csproj"
-COPY . .
-WORKDIR "/src/."
-RUN dotnet build "HotelManagementFrontend.csproj" -c Release -o /app/build
 
-FROM build AS publish
-RUN dotnet publish "HotelManagementFrontend.csproj" -c Release -o /app/publish
+# Copy the rest of the application code
+COPY . ./
+RUN dotnet publish "./HotelManagementFrontend.csproj" -c Release -o /app/publish
 
-FROM base AS final
+# Use .NET 6.0 runtime base image
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/publish .
+
+# Specify the entry point of the application
 ENTRYPOINT ["dotnet", "HotelManagementFrontend.dll"]
