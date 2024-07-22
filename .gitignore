@@ -1,0 +1,35 @@
+# .NET Core
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+*.json
+*.xml
+*.csproj.user
+
+# ASP.NET Core
+wwwroot/
+*.db
+
+# Rider
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.suo
+*.swp
+*.tmp
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
