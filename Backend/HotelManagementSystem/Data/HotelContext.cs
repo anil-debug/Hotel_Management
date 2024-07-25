@@ -9,8 +9,6 @@ namespace HotelManagementSystem.Data
         {
         }
 
-        public DbSet<Customer> Customers { get; set; }
-        public DbSet<Room> Rooms { get; set; }
-        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Hotel> Hotels { get; set; } = null!;
     }
 }
