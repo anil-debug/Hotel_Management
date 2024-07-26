@@ -1,14 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq; // This is needed for the ToList() method
 using HotelManagementSystem.Models;
-using HotelManagementSystem.Data;
-using Microsoft.EntityFrameworkCore; // This is needed for EntityState
-
-// using Microsoft.AspNetCore.Mvc;
-// using System.Collections.Generic;
-// using HotelManagementSystem.Models;
-// using HotelManagementSystem.Data;
+using HotelManagementSystem.Repositories;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace HotelManagementSystem.Controllers
 {
@@ -16,68 +10,56 @@ namespace HotelManagementSystem.Controllers
     [ApiController]
     public class HotelController : ControllerBase
     {
-        private readonly HotelContext _context;
+        private readonly IHotelRepository _hotelRepository;
 
-        public HotelController(HotelContext context)
+        public HotelController(IHotelRepository hotelRepository)
         {
-            _context = context;
+            _hotelRepository = hotelRepository;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Hotel>> GetHotels()
+        public async Task<ActionResult<IEnumerable<Hotel>>> GetHotels()
         {
-            return _context.Hotels.ToList();
+            var hotels = await _hotelRepository.GetAllHotelsAsync();
+            return Ok(hotels);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Hotel> GetHotel(int id)
+        public async Task<ActionResult<Hotel>> GetHotel(int id)
         {
-            var hotel = _context.Hotels.Find(id);
+            var hotel = await _hotelRepository.GetHotelByIdAsync(id);
 
             if (hotel == null)
             {
                 return NotFound();
             }
 
-            return hotel;
+            return Ok(hotel);
         }
 
         [HttpPost]
-        public ActionResult<Hotel> PostHotel(Hotel hotel)
+        public async Task<ActionResult<Hotel>> PostHotel(Hotel hotel)
         {
-            _context.Hotels.Add(hotel);
-            _context.SaveChanges();
-
-            return CreatedAtAction(nameof(GetHotel), new { id = hotel.Id }, hotel);
+            var newHotel = await _hotelRepository.AddHotelAsync(hotel);
+            return CreatedAtAction(nameof(GetHotel), new { id = newHotel.Id }, newHotel);
         }
 
         [HttpPut("{id}")]
-        public IActionResult PutHotel(int id, Hotel hotel)
+        public async Task<IActionResult> PutHotel(int id, Hotel hotel)
         {
             if (id != hotel.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(hotel).State = EntityState.Modified;
-            _context.SaveChanges();
-
+            await _hotelRepository.UpdateHotelAsync(hotel);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteHotel(int id)
+        public async Task<IActionResult> DeleteHotel(int id)
         {
-            var hotel = _context.Hotels.Find(id);
-
-            if (hotel == null)
-            {
-                return NotFound();
-            }
-
-            _context.Hotels.Remove(hotel);
-            _context.SaveChanges();
-
+            await _hotelRepository.DeleteHotelAsync(id);
             return NoContent();
         }
     }
