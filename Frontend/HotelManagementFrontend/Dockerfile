@@ -1,15 +1,30 @@
-# Use the official .NET SDK image to build the app
+# Use the official .NET SDK image to build the application
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /app
 
-# Copy the csproj and restore any dependencies (via NuGet)
+# Set the working directory to /src
+WORKDIR /src
+
+# Copy the project file and restore any dependencies
 COPY HotelManagementFrontend.csproj ./
 RUN dotnet restore
 
-# Copy the rest of the code and build the app
+# Copy the rest of the application code
 COPY . ./
+
+# Build the application
+RUN dotnet build -c Release -o /app/build
+
+# Publish the application
 RUN dotnet publish -c Release -o /app/publish
 
-# Use an Nginx image to serve the static files
-FROM nginx:alpine
-COPY --from=build /app/publish/wwwroot /usr/share/nginx/html
+# Use the official ASP.NET Core runtime image for the final stage
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
+
+# Set the working directory to /app
+WORKDIR /app
+
+# Copy the published files from the build stage
+COPY --from=build /app/publish .
+
+# Set the entry point for the container
+ENTRYPOINT ["dotnet", "HotelManagementFrontend.dll"]

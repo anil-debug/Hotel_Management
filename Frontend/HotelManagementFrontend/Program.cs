@@ -1,20 +1,29 @@
-// public class Program
+// using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+// using Microsoft.AspNetCore.Components.Web;
+// using HotelManagementFrontend;
+
+// namespace HotelManagementFrontend
 // {
-//     public static void Main(string[] args)
+//     public class Program
 //     {
-//         var builder = WebAssemblyHostBuilder.CreateDefault(args);
-//         builder.RootComponents.Add<App>("app");
+//         public static async Task Main(string[] args)
+//         {
+//             var builder = WebAssemblyHostBuilder.CreateDefault(args);
+//             builder.RootComponents.Add<App>("app");
 
-//         builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+//             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-//         await builder.Build().RunAsync();
+//             await builder.Build().RunAsync();
+//         }
 //     }
 // }
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using HotelManagementFrontend;
+using Microsoft.AspNetCore.Components.Web;
+using HotelManagementFrontend; // Ensure this namespace matches your project's root namespace
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
-builder.RootComponents.Add<App>("app");
+builder.RootComponents.Add<App>("app"); // Ensure the `App` component is available in your project
+
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 await builder.Build().RunAsync();
